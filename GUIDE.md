@@ -59,7 +59,7 @@ source $HOME/anaconda3/bin/activate
 
 <br/>
 
-## Clone `flux` fork
+## Clone `flux2` fork
 
 **References**:
 
