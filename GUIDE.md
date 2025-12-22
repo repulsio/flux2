@@ -61,12 +61,6 @@ source $HOME/anaconda3/bin/activate
 
 ## Clone `flux2` fork
 
-**References**:
-
-- [PyTorch installation](https://pytorch.org/get-started/previous-versions/)
-
-<br/>
-
 ```shell
 git clone https://github.com/repulsio/flux2.git
 cd flux2/
