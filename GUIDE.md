@@ -68,10 +68,8 @@ source ~/.bashrc
 <br/>
 
 ```shell
-git clone https://github.com/repulsio/flux.git
-
-cd flux/
-
+git clone https://github.com/repulsio/flux2.git
+cd flux2/
 git checkout repulsio/hyperstack
 ```
 
@@ -94,31 +92,15 @@ Choose _**only 1 of the 2 options**_ below depending on whether you want to use 
 ### Option 1. Inside Conda virtual environment
 
 ```shell
-conda create -n flux python=3.10
+conda create -n flux2 python=3.12 -y
+conda activate flux2
 
-conda activate flux
+pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124
 
-conda install pytorch==2.5.1 torchvision==0.20.1 pytorch-cuda=12.1 -c pytorch -c nvidia
-
-# Type and enter `y`
-
-pip install -e ".[all]"
-pip install -e ".[tensorrt]"
-
-#
-pip install nvidia-tensorrt  # solves "No module named 'tensorrt_bindings'"
+pip install -e . --extra-index-url https://download.pytorch.org/whl/cu124 --no-cache-dir
 
 pip install pydantic==2.8.2  # downgrade `pydantic` from `2.11.1`
 ```
-
-> [!WARNING]
-> `nvidia-tensorrt` needs to be installed in a Conda virtual environment otherwise `python demo_gr.py` gives the error:
->
-> > No module named 'tensorrt_bindings'
->
-> [Reference](https://stackoverflow.com/questions/55557912/importerror-no-module-named-tensorrt)
->
-> At this time `pip install nvidia-tensorrt` installed version `99.0.0`.
 
 > [!WARNING]
 > `pydantic` needs to be downgraded due to this [`gradio` issue](https://github.com/gradio-app/gradio/issues/10662).
