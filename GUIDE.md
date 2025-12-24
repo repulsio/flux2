@@ -101,6 +101,16 @@ git clone https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev
 cd FLUX.2-dev/
 pip install -r requirements.txt
 
+git clone https://huggingface.co/spaces/Lakonik/pi-FLUX.2
+cd pi-FLUX.2/
+pip install -r requirements.txt
+
+git clone https://huggingface.co/spaces/rokmr/flux2.0
+cd flux2.0/
+pip install -r requirements.txt
+
+
+
 hf auth login
 
 # Enter your WRITE Access Token
