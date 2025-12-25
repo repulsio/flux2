@@ -105,6 +105,7 @@ hf auth login
 # Enter your WRITE Access Token
 # Type and enter `Y`
 
+
 # High VRAM model
 git clone https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev
 cd FLUX.2-dev/
@@ -119,3 +120,54 @@ GRADIO_SERVER_NAME=0.0.0.0 GRADIO_SERVER_PORT=7860 python app.py
 ```
 
 Open `http://<PUBLIC_IP_ADDRESS_OF_VM>:7860` in your web browser.
+
+<br/>
+
+---
+
+## Mistral Text Encoder
+
+`spaces/black-forest-labs/FLUX.2-dev` uses `spaces/multimodalart/mistral-text-encoder`. To avoid "You have exceeded your free GPU quota", you can run `spaces/multimodalart/mistral-text-encoder` locally.
+
+`spaces/multimodalart/mistral-text-encoder` uses the model [`mistralai/Mistral-Small-3.2-24B-Instruct-2506`](https://huggingface.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506), which takes uses a lot of VRAM:
+> Note: Running Mistral-Small-3.2-24B-Instruct-2506 on GPU requires ~55 GB of GPU RAM in bf16 or fp16.
+
+Thus, 48 GB VRAM GPU chips are insufficient. On HyperStack, we need `A100` or `H100`'s 80 GB VRAM or higher
+
+You can run a `A100-80G-PCIe` (80 GB VRAM) VM on **HyperStack** for **$1.35/hour** with the following specs:
+
+- 1 GPU
+- 28 CPUs
+- 120 GB RAM
+- 100 GB Disk
+- 750 GB Ephemeral
+
+Redo the same setup on the new VM:
+```shell
+curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
+bash Anaconda3-2024.10-1-Linux-x86_64.sh -b -p $HOME/anaconda3
+source $HOME/anaconda3/bin/activate
+
+conda create -n flux2 python=3.12 -y
+conda activate flux2
+
+pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cu126
+```
+
+Run the space:
+```shell
+git clone https://huggingface.co/spaces/multimodalart/mistral-text-encoder
+cd mistral-text-encoder/
+pip install -r requirements.txt
+
+pip install spaces
+
+GRADIO_SERVER_NAME=0.0.0.0 GRADIO_SERVER_PORT=7860 python app.py
+
+# On `flux2` VM:
+cd FLUX.2-dev/
+vi app.py
+
+# Replace `client = Client("multimodalart/mistral-text-encoder")` with `client = Client(http://<PUBLIC_IP_ADDRESS_OF_MISTRAL_VM>:7860")`
+
+```
