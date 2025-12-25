@@ -6,12 +6,13 @@ This is working on the latest `flux2` commit [`ab7cca68018ad3ceadcace9d6ecb1bc1f
 
 ## HyperStack
 
-You can run a `RTX-A6000` VM on **HyperStack** for **$0.50/hour** with the following specs:
+You can run a `H100-80G-PCIe` (80 GB VRAM) VM on **HyperStack** for **$1.90/hour** with the following specs:
 
 - 1 GPU
 - 28 CPUs
-- 58 GB RAM
+- 180 GB RAM
 - 100 GB Disk
+- 750 GB Ephemeral
 
 <br/>
 
@@ -87,7 +88,9 @@ git checkout repulsio/hyperstack
 conda create -n flux2 python=3.12 -y
 conda activate flux2
 
-pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124
+# `torch==2.8.0` is needed, which requires >= `cu126`
+# `cu126` somehow works on `Ubuntu Server 22.04 LTS R550 CUDA 12.4`
+pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cu126
 
 pip install -e . --extra-index-url https://download.pytorch.org/whl/cu124 --no-cache-dir
 ```
@@ -102,11 +105,12 @@ hf auth login
 # Enter your WRITE Access Token
 # Type and enter `Y`
 
-
+# High VRAM model
 git clone https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev
 cd FLUX.2-dev/
 pip install -r requirements.txt
 
+# Supposedly lower VRAM model
 git clone https://huggingface.co/spaces/Lakonik/pi-FLUX.2
 cd pi-FLUX.2/
 pip install -r requirements.txt
