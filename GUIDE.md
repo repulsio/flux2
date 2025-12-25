@@ -97,6 +97,12 @@ pip install -e . --extra-index-url https://download.pytorch.org/whl/cu124 --no-c
 ## Run Web Demo
 
 ```shell
+hf auth login
+
+# Enter your WRITE Access Token
+# Type and enter `Y`
+
+
 git clone https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev
 cd FLUX.2-dev/
 pip install -r requirements.txt
@@ -104,17 +110,6 @@ pip install -r requirements.txt
 git clone https://huggingface.co/spaces/Lakonik/pi-FLUX.2
 cd pi-FLUX.2/
 pip install -r requirements.txt
-
-git clone https://huggingface.co/spaces/rokmr/flux2.0
-cd flux2.0/
-pip install -r requirements.txt
-
-
-
-hf auth login
-
-# Enter your WRITE Access Token
-# Type and enter `Y`
 
 GRADIO_SERVER_NAME=0.0.0.0 GRADIO_SERVER_PORT=7860 python app.py
 ```
