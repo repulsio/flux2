@@ -170,4 +170,5 @@ vi app.py
 
 # Replace `client = Client("multimodalart/mistral-text-encoder")` with `client = Client(http://<PUBLIC_IP_ADDRESS_OF_MISTRAL_VM>:7860")`
 
+GRADIO_SERVER_NAME=0.0.0.0 GRADIO_SERVER_PORT=7860 python app.py
 ```
